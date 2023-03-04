@@ -230,6 +230,16 @@ module aptos_framework::object {
         address_to_object<T>(ref.self)
     }
 
+    /// Returns the address of within a DeleteRef.
+    public fun object_from_extend_ref<T: key>(ref: &ExtendRef): Object<T> {
+        address_to_object<T>(ref.self)
+    }
+
+    /// Returns the address of within a DeleteRef.
+    public fun object_from_transfer_ref<T: key>(ref: &TransferRef): Object<T> {
+        address_to_object<T>(ref.self)
+    }
+
     // Signer required functions
 
     /// Create a guid for the object, typically used for events
@@ -273,6 +283,10 @@ module aptos_framework::object {
     }
 
     // Transfer functionality
+    public fun ungated_transfer_allowed<T>(object: Object<T>): bool acquires ObjectCore {
+        let object = borrow_global_mut<ObjectCore>(object.inner);
+        object.allow_ungated_transfer
+    }
 
     /// Disable direct transfer, transfers can only be triggered via a TransferRef
     public fun disable_ungated_transfer(ref: &TransferRef) acquires ObjectCore {

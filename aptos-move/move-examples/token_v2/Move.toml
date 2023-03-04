@@ -1,0 +1,9 @@
+[package]
+name = "Tokenv2"
+version = "0.0.0"
+
+[addresses]
+token_v2 = "_"
+
+[dependencies]
+AptosFramework = { local = "../../framework/aptos-framework" }
